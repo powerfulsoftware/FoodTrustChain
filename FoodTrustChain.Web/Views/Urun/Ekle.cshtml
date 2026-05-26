@@ -1,0 +1,63 @@
+@model FoodTrustChain.Web.Models.Entities.Urun
+
+@{
+    ViewData["Title"] = "Ürün Ekle";
+}
+
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h4>Yeni Ürün Ekle</h4>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Hata != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Hata</div>
+        }
+
+        <form asp-action="Ekle" asp-controller="Urun" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Ürün Adı *</label>
+                        <input name="Ad" class="form-control" value="@Model?.Ad" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kategori *</label>
+                        <select name="Kategori" class="form-select">
+                            <option value="">-- Seçin --</option>
+                            <option value="Et" selected="@(Model?.Kategori == "Et")">Et</option>
+                            <option value="Sut" selected="@(Model?.Kategori == "Sut")">Süt</option>
+                            <option value="Sebze" selected="@(Model?.Kategori == "Sebze")">Sebze</option>
+                            <option value="Meyve" selected="@(Model?.Kategori == "Meyve")">Meyve</option>
+                            <option value="Tahil" selected="@(Model?.Kategori == "Tahil")">Tahıl</option>
+                            <option value="Yumurta" selected="@(Model?.Kategori == "Yumurta")">Yumurta</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Üretici *</label>
+                        <select name="UreticiId" class="form-select" required>
+                            <option value="">-- Seçin --</option>
+                            @if (ViewBag.Ureticiler != null)
+                            {
+                                foreach (var item in ViewBag.Ureticiler)
+                                {
+                                    <option value="@item.Value" selected="@(Model?.UreticiId.ToString() == item.Value)">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Açıklama</label>
+                        <textarea name="Aciklama" class="form-control" rows="4">@Model?.Aciklama</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a href="@Url.Action("Index", "Urun")" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

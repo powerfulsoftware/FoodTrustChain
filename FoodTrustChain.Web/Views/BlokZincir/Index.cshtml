@@ -1,0 +1,38 @@
+@{
+    ViewData["Title"] = "Blok Zincir";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>@ViewData["Title"]</h2>
+    <a href="@Url.Action("ZincirDogrula", "BlokZincir")" class="btn btn-outline-success">Zinciri Doğrula</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-sm table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>İşlem Tipi</th>
+                <th>İçerik</th>
+                <th>Nonce</th>
+                <th>Zaman</th>
+                <th>Hash</th>
+                <th>Önceki Hash</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td><span class="badge bg-primary">@item.IslemTipi</span></td>
+                    <td><small>@item.IslemIcerigi?.Substring(0, Math.Min(50, item.IslemIcerigi.Length ?? 0))...</small></td>
+                    <td>@item.Nonce</td>
+                    <td><small>@item.ZamanDamgasi.ToString("dd.MM HH:mm")</small></td>
+                    <td><code>@item.MevcutHash?.Substring(0, 16)...</code></td>
+                    <td><code>@item.OncekiHash?.Substring(0, 16)...</code></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,64 @@
+@model FoodTrustChain.Web.Models.Entities.Tasit
+
+@{
+    ViewData["Title"] = "Taşıt Ekle";
+}
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h4>Yeni Taşıt Ekle</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Ekle" method="post">
+            @Html.AntiForgeryToken()
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <strong>Validation Errors:</strong>
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var errors = ViewData.ModelState[key].Errors;
+                        if (errors.Any())
+                        {
+                            <p>@key: @string.Join(", ", errors.Select(e => e.ErrorMessage))</p>
+                        }
+                    }
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Plaka No</label>
+                        <input asp-for="PlakaNo" class="form-control" required placeholder="01 ABC 123" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Araç Tipi</label>
+                        <select asp-for="AracTipi" class="form-select" asp-items="ViewBag.AracTipler"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Kapasite (kg)</label>
+                        <input asp-for="Kapasite" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Şoför Adı</label>
+                        <input asp-for="SoforAdi" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Şoför Telefon</label>
+                        <input asp-for="SoforTelefon" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Sigorta No</label>
+                        <input asp-for="SigortaNo" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a href="@Url.Action("Index", "Tasit")" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

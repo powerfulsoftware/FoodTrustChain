@@ -1,0 +1,134 @@
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+}
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h4>Yönetim Paneli</h4>
+    </div>
+    <div class="card-body">
+        <div class="row mb-4">
+            <div class="col-md-2">
+                <div class="card bg-primary text-white">
+                    <div class="card-body text-center">
+                        <h3>@ViewBag.ToplamUye</h3>
+                        <p class="mb-0">Toplam Üye</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-success text-white">
+                    <div class="card-body text-center">
+                        <h3>@ViewBag.ToplamUrun</h3>
+                        <p class="mb-0">Toplam Ürün</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-info text-white">
+                    <div class="card-body text-center">
+                        <h3>@ViewBag.ToplamUretim</h3>
+                        <p class="mb-0">Üretim</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-warning text-dark">
+                    <div class="card-body text-center">
+                        <h3>@ViewBag.ToplamDepolama</h3>
+                        <p class="mb-0">Depolama</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-secondary text-white">
+                    <div class="card-body text-center">
+                        <h3>@ViewBag.ToplamNakliye</h3>
+                        <p class="mb-0">Nakliye</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card bg-danger text-white">
+                    <div class="card-body text-center">
+                        <h3>@ViewBag.ToplamBlokKayit</h3>
+                        <p class="mb-0">Blok Zincir</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5>Son Ürünler</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (ViewBag.SonUrunler != null && ViewBag.SonUrunler.Count > 0)
+                        {
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Ürün</th>
+                                        <th>Üretici</th>
+                                        <th>Durum</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.SonUrunler)
+                                    {
+                                        <tr>
+                                            <td>@item.Ad</td>
+                                            <td>@item.Uretici?.Ad @item.Uretici?.Soyad</td>
+                                            <td><span class="badge bg-secondary">@item.Durum</span></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p class="text-muted">Henüz ürün bulunmamaktadır.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5>Son Blok Kayıtları</h5>
+                    </div>
+                    <div class="card-body">
+                        @if (ViewBag.SonBlokKayitlar != null && ViewBag.SonBlokKayitlar.Count > 0)
+                        {
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tip</th>
+                                        <th>Zaman</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in ViewBag.SonBlokKayitlar)
+                                    {
+                                        <tr>
+                                            <td>@item.Id</td>
+                                            <td><span class="badge bg-primary">@item.IslemTipi</span></td>
+                                            <td>@item.ZamanDamgasi.ToString("dd.MM HH:mm")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <p class="text-muted">Henüz blok kaydı bulunmamaktadır.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

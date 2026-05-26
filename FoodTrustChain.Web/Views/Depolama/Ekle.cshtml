@@ -1,0 +1,97 @@
+@model FoodTrustChain.Web.Models.Entities.Depolama
+
+@{
+    ViewData["Title"] = "Depolama Ekle";
+}
+
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h4>Yeni Depolama Kaydı</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Ekle" method="post" id="depolamaForm">
+            @Html.AntiForgeryToken()
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <strong>Validation Errors:</strong>
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                    <strong>All Errors:</strong>
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var errors = ViewData.ModelState[key].Errors;
+                        if (errors.Any())
+                        {
+                            <p>@key: @string.Join(", ", errors.Select(e => e.ErrorMessage))</p>
+                        }
+                    }
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Ürün *</label>
+                        <select asp-for="UrunId" class="form-select" id="UrunId" name="UrunId">
+                            <option value="">-- Ürün Seçin --</option>
+                            @foreach (var item in ViewBag.Urunler)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Depo Adı *</label>
+                        <input asp-for="DepoAdi" class="form-control" id="DepoAdi" name="DepoAdi" value="Ana Depo" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Depo Adresi</label>
+                        <input asp-for="DepoAdresi" class="form-control" id="DepoAdresi" name="DepoAdresi" value="Malatya" />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Sıcaklık (°C)</label>
+                        <input asp-for="Sicaklik" class="form-control" id="Sicaklik" name="Sicaklik" value="4" step="0.1" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nem Oranı (%)</label>
+                        <input asp-for="NemOrani" class="form-control" id="NemOrani" name="NemOrani" value="65" step="0.1" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giriş Tarihi</label>
+                        <input asp-for="GirisTarihi" type="datetime-local" class="form-control" id="GirisTarihi" name="GirisTarihi" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success" id="btnSubmit">Kaydet</button>
+                <a href="@Url.Action("Index", "Depolama")" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.onload = function() {
+            console.log('Script loaded!');
+            var form = document.getElementById('depolamaForm');
+            var btn = document.getElementById('btnSubmit');
+            
+            console.log('Form:', form);
+            console.log('Button:', btn);
+            
+            if (btn) {
+                btn.onclick = function(e) {
+                    console.log('Button clicked!');
+                    e.preventDefault();
+                    alert('Buton tıklandı! Form gönderilecek.');
+                    form.submit();
+                };
+            }
+        };
+    </script>
+}

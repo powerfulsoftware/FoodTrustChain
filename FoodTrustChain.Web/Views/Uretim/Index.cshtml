@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Üretim Kayıtları";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>@ViewData["Title"]</h2>
+    @if (User.IsInRole("Yonetici") || User.IsInRole("Uretici"))
+    {
+        <a href="@Url.Action("Ekle", "Uretim")" class="btn btn-success">Yeni Üretim Ekle</a>
+    }
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Çiftlik</th>
+                <th>Ürün</th>
+                <th>Üretici</th>
+                <th>Hasat Tarihi</th>
+                <th>Miktar</th>
+                <th>Hash</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.CiftlikAdi</td>
+                    <td>@item.Urun?.Ad</td>
+                    <td>@item.Uretici?.Ad @item.Uretici?.Soyad</td>
+                    <td>@item.HasatTarihi?.ToString("dd.MM.yyyy")</td>
+                    <td>@item.Miktar @item.Birim</td>
+                    <td><code>@item.HashDegeri?.Substring(0, 16)...</code></td>
+                    <td>
+                        <a href="@Url.Action("Detay", "Uretim", new { id = item.Id })" class="btn btn-sm btn-primary">Detay</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

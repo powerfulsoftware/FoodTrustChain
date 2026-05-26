@@ -1,0 +1,176 @@
+@model FoodTrustChain.Web.Models.Entities.Urun
+
+@{
+    ViewData["Title"] = "Ürün Detay";
+}
+
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h4>Ürün Bilgileri</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">Ürün Adı</dt>
+                    <dd class="col-sm-8">@Model.Ad</dd>
+
+                    <dt class="col-sm-4">Kategori</dt>
+                    <dd class="col-sm-8">@Model.Kategori</dd>
+
+                    <dt class="col-sm-4">Açıklama</dt>
+                    <dd class="col-sm-8">@Model.Aciklama</dd>
+
+                    <dt class="col-sm-4">Üretici</dt>
+                    <dd class="col-sm-8">@Model.Uretici?.Ad @Model.Uretici?.Soyad</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="row">
+                    <dt class="col-sm-4">Durum</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.Durum == "Satildi")
+                        {
+                            <span class="badge bg-secondary">Satıldı</span>
+                        }
+                        else if (Model.Durum == "Tasinyor")
+                        {
+                            <span class="badge bg-warning">Taşınıyor</span>
+                        }
+                        else if (Model.Durum == "Depoda")
+                        {
+                            <span class="badge bg-info">Depoda</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-success">Üretimde</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4">GUID</dt>
+                    <dd class="col-sm-8"><code>@Model.Guid</code></dd>
+
+                    <dt class="col-sm-4">Oluşturma</dt>
+                    <dd class="col-sm-8">@Model.OlusturmaTarihi.ToString("dd.MM.yyyy HH:mm")</dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <img src="@Url.Action("Olustur", "QRKod", new { urunId = Model.Id })" alt="QR Kod" style="max-width: 200px;" class="border rounded" />
+            <p class="mt-2 text-muted">QR kodu tarayarak ürün geçmişini sorgulayabilirsiniz.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+        <h5>Üretim Kayıtları</h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Uretimler != null && ViewBag.Uretimler.Count > 0)
+        {
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Çiftlik</th>
+                        <th>Hasat Tarihi</th>
+                        <th>Miktar</th>
+                        <th>Konum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Uretimler)
+                    {
+                        <tr>
+                            <td>@item.CiftlikAdi</td>
+                            <td>@item.HasatTarihi?.ToString("dd.MM.yyyy")</td>
+                            <td>@item.Miktar @item.Birim</td>
+                            <td>@item.Konum</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Henüz üretim kaydı bulunmamaktadır.</p>
+        }
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-warning text-dark">
+        <h5>Depolama Kayıtları</h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.DepolamaIslemleri != null && ViewBag.DepolamaIslemleri.Count > 0)
+        {
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Depo</th>
+                        <th>Giriş</th>
+                        <th>Çıkış</th>
+                        <th>Sıcaklık</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.DepolamaIslemleri)
+                    {
+                        <tr>
+                            <td>@item.DepoAdi</td>
+                            <td>@item.GirisTarihi?.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@item.CikisTarihi?.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td>@item.Sicaklik °C</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Henüz depolama kaydı bulunmamaktadır.</p>
+        }
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-header bg-info text-white">
+        <h5>Nakliye Kayıtları</h5>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Nakliyeler != null && ViewBag.Nakliyeler.Count > 0)
+        {
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Taşıt</th>
+                        <th>Şoför</th>
+                        <th>Başlangıç</th>
+                        <th>Bitiş</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Nakliyeler)
+                    {
+                        <tr>
+                            <td>@item.Tasit?.PlakaNo</td>
+                            <td>@item.SoforAdi</td>
+                            <td>@item.BaslangicAdresi</td>
+                            <td>@item.BitisAdresi</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">Henüz nakliye kaydı bulunmamaktadır.</p>
+        }
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Urun")" class="btn btn-secondary">Geri Dön</a>
+</div>

@@ -1,0 +1,63 @@
+@model FoodTrustChain.Web.Models.Entities.Uretim
+
+@{
+    ViewData["Title"] = "Üretim Ekle";
+}
+
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h4>Yeni Üretim Kaydı</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Ekle" method="post">
+            @Html.AntiForgeryToken()
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Ürün *</label>
+                        <select asp-for="UrunId" class="form-select">
+                            <option value="">-- Ürün Seçin --</option>
+                            @foreach (var item in ViewBag.Urunler)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Üretici *</label>
+                        <select asp-for="UreticiId" class="form-select">
+                            <option value="">-- Üretici Seçin --</option>
+                            @foreach (var item in ViewBag.Ureticiler)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Çiftlik Adı *</label>
+                        <input asp-for="CiftlikAdi" class="form-control" value="Deneme Çiftlik" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Konum</label>
+                        <input asp-for="Konum" class="form-control" value="Malatya" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Hasat Tarihi</label>
+                        <input asp-for="HasatTarihi" type="date" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Miktar *</label>
+                        <div class="input-group">
+                            <input asp-for="Miktar" class="form-control" value="100" required />
+                            <select asp-for="Birim" class="form-select" asp-items="ViewBag.Birimler" style="max-width: 100px;"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a href="@Url.Action("Index", "Uretim")" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

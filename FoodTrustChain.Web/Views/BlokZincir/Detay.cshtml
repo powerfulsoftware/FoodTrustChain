@@ -1,0 +1,36 @@
+@model FoodTrustChain.Web.Models.Entities.BlokZincirKayit
+
+@{
+    ViewData["Title"] = "Blok Detay";
+}
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h4>Blok #@Model.Id</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-md-3">İşlem Tipi</dt>
+            <dd class="col-md-9"><span class="badge bg-primary">@Model.IslemTipi</span></dd>
+
+            <dt class="col-md-3">İçerik</dt>
+            <dd class="col-md-9">@Model.IslemIcerigi</dd>
+
+            <dt class="col-md-3">Nonce</dt>
+            <dd class="col-md-9">@Model.Nonce</dd>
+
+            <dt class="col-md-3">Zaman Damgası</dt>
+            <dd class="col-md-9">@Model.ZamanDamgasi.ToString("dd.MM.yyyy HH:mm:ss")</dd>
+
+            <dt class="col-md-3">Önceki Hash</dt>
+            <dd class="col-md-9"><code class="text-break">@Model.OncekiHash</code></dd>
+
+            <dt class="col-md-3">Mevcut Hash</dt>
+            <dd class="col-md-9"><code class="text-break">@Model.MevcutHash</code></dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "BlokZincir")" class="btn btn-secondary">Geri Dön</a>
+</div>

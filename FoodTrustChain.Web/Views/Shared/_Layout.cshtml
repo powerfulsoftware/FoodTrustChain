@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FoodTrustChain</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="~/">
+                <strong>FoodTrustChain</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <ul class="navbar-nav me-auto">
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Uretici") || User.IsInRole("Depo") || User.IsInRole("Lojistik") || User.IsInRole("Market"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Urun">Ürünler</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Uretici"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Uretim">Üretim</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Depo") || User.IsInRole("Lojistik"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Depolama">Depolama</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Lojistik"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Nakliye">Nakliye</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Lojistik"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/Tasit">Taşıtlar</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Uretici") || User.IsInRole("Depo") || User.IsInRole("Lojistik") || User.IsInRole("Market") || User.IsInRole("Tuketici"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/BlokZincir">Blok Zincir</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici") || User.IsInRole("Uretici") || User.IsInRole("Depo") || User.IsInRole("Lojistik") || User.IsInRole("Market") || User.IsInRole("Tuketici"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="~/QRKod/Tara">QR Kod</a>
+                            </li>
+                        }
+
+                        @if (User.IsInRole("Yonetici"))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Yönetim</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="~/Yonetici/Dashboard/Index">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="~/Yonetici/Ayar/Index">Sistem Ayarları</a></li>
+                                    <li><a class="dropdown-item" href="~/Uyeler">Üyeler</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                }
+                <ul class="navbar-nav">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <span class="navbar-text text-white">@User.Identity.Name</span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Hesap/Cikis">Çıkış</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Hesap/Giris">Giriş</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="~/Hesap/Kayit">Kayıt</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <footer class="bg-light py-4 mt-5">
+        <div class="container text-center">
+            <p class="text-muted mb-0">FoodTrustChain - Gıda Güvenliği Takip Sistemi © @DateTime.Now.Year</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

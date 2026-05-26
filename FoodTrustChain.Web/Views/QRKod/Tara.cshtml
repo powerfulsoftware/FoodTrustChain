@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "QR Kod Tara";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4>Ürün Sorgulama</h4>
+            </div>
+            <div class="card-body">
+                <form asp-action="Tara" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Ürün GUID</label>
+                        <input type="text" name="guid" class="form-control" placeholder="Ürünün QR kodunu tarayın veya GUID girin" required />
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Sorgula</button>
+                </form>
+
+                @if (ViewBag.Hata != null)
+                {
+                    <div class="alert alert-danger mt-3">@ViewBag.Hata</div>
+                }
+            </div>
+        </div>
+
+        <div class="card mt-4">
+            <div class="card-body text-center">
+                <h5>Nasıl Çalışır?</h5>
+                <ol class="text-start">
+                    <li>Ürün üzerindeki QR kodu tarayın veya kutu üzerindeki GUID'i girin</li>
+                    <li>Sistem ürünün tüm geçmişini getirecektir</li>
+                    <li>Üretim, depolama ve nakliye bilgilerini görüntüleyin</li>
+                    <li>Ürünün güvenilirliğini doğrulayın</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

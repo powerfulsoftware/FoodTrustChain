@@ -1,0 +1,91 @@
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="row align-items-center py-5">
+    <div class="col-lg-7">
+        <h1 class="display-4 fw-bold text-success">FoodTrustChain</h1>
+        <h2 class="h4 text-muted mb-4">Gıda Güvenliği Takip Sistemi</h2>
+        <p class="lead text-dark">
+            Blokzincir teknolojisi ile gıda ürünlerinin tüm yaşam döngüsünü şeffaf ve güvenilir şekilde takip edin.
+        </p>
+        <div class="mt-4">
+            <a href="@Url.Action("Index", "Urun")" class="btn btn-success btn-lg me-2">Ürünleri Görüntüle</a>
+            <a href="@Url.Action("Tara", "QRKod")" class="btn btn-outline-success btn-lg">QR Kod Tara</a>
+        </div>
+    </div>
+    <div class="col-lg-5 text-center">
+        <div class="card shadow-lg">
+            <div class="card-body p-5">
+                <h5 class="card-title text-success">Blokzincir ile Güven</h5>
+                <ul class="list-unstyled text-start">
+                    <li class="mb-2">✓ Üretimden tüketime kadar izlenebilirlik</li>
+                    <li class="mb-2">✓ Değiştirilemez kayıtlar</li>
+                    <li class="mb-2">✓ QR kod ile hızlı doğrulama</li>
+                    <li class="mb-2">✓ Şeffaf tedarik zinciri</li>
+                    <li class="mb-2">✓ Sahte ürün engelleme</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-success">🌾</h3>
+                <h5 class="card-title">Üretim Takibi</h5>
+                <p class="card-text">Ürünlerinizin çiftlikten başlayarak tüm süreçlerini kayıt altına alın.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-success">🏭</h3>
+                <h5 class="card-title">Depolama Yönetimi</h5>
+                <p class="card-text">Sıcaklık ve nem gibi kritik depolama koşullarını izleyin.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-success">🚚</h3>
+                <h5 class="card-title">Nakliye İzleme</h5>
+                <p class="card-text">Taşıma süreçlerini anlık olarak takip edin.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-success">📋</h3>
+                <h5 class="card-title">Blok Zincir Kayıtları</h5>
+                <p class="card-text">Tüm işlemleriniz değiştirilemez blok zincir yapısında saklanır.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-success">📱</h3>
+                <h5 class="card-title">QR Kod Doğrulama</h5>
+                <p class="card-text">Tüketiciler ürünlerin geçmişini QR kod ile kolayca sorgulayabilir.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 shadow">
+            <div class="card-body text-center">
+                <h3 class="text-success">🔒</h3>
+                <h5 class="card-title">Veri Güvenliği</h5>
+                <p class="card-text">SHA256 hash algoritması ile veri bütünlüğü sağlanır.</p>
+            </div>
+        </div>
+    </div>
+</div>

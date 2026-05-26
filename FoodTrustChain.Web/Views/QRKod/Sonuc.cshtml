@@ -1,0 +1,98 @@
+@{
+    ViewData["Title"] = "Ürün Detay";
+}
+
+@if (ViewBag.Urun != null)
+{
+    var urun = ViewBag.Urun as FoodTrustChain.Web.Models.Entities.Urun;
+
+    <div class="card border-success">
+        <div class="card-header bg-success text-white">
+            <h4>✓ Ürün Doğrulandı</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-success">@urun.Ad</h5>
+                    <p class="text-muted">@urun.Kategori</p>
+                    <dl class="row mt-3">
+                        <dt class="col-4">Üretici</dt>
+                        <dd class="col-8">@urun.Uretici?.Ad @urun.Uretici?.Soyad</dd>
+                        <dt class="col-4">Durum</dt>
+                        <dd class="col-8">@urun.Durum</dd>
+                        <dt class="col-4">GUID</dt>
+                        <dd class="col-8"><code>@urun.Guid.ToString().Substring(0, 8)...</code></dd>
+                    </dl>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="border rounded p-3 bg-light">
+                        <img src="@Url.Action("Olustur", "QRKod", new { urunId = urun.Id })" alt="QR" style="max-width: 150px;" />
+                        <p class="mt-2 small text-muted">@urun.Guid</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Uretimler != null && ViewBag.Uretimler.Count > 0)
+    {
+        <div class="card mt-3 border-primary">
+            <div class="card-header bg-primary text-white">
+                <h5>🌾 Üretim Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in ViewBag.Uretimler)
+                {
+                    <div class="border-bottom pb-2 mb-2">
+                        <strong>@item.CiftlikAdi</strong> - @item.Konum<br />
+                        <small>Hasat: @item.HasatTarihi?.ToString("dd.MM.yyyy") | @item.Miktar @item.Birim</small>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.DepolamaIslemleri != null && ViewBag.DepolamaIslemleri.Count > 0)
+    {
+        <div class="card mt-3 border-warning">
+            <div class="card-header bg-warning text-dark">
+                <h5>🏭 Depolama Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in ViewBag.DepolamaIslemleri)
+                {
+                    <div class="border-bottom pb-2 mb-2">
+                        <strong>@item.DepoAdi</strong> - @item.DepoAdresi<br />
+                        <small>Giriş: @item.GirisTarihi?.ToString("dd.MM.yyyy HH:mm") | Sıcaklık: @item.Sicaklik°C</small>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    @if (ViewBag.Nakliyeler != null && ViewBag.Nakliyeler.Count > 0)
+    {
+        <div class="card mt-3 border-info">
+            <div class="card-header bg-info text-white">
+                <h5>🚚 Nakliye Bilgileri</h5>
+            </div>
+            <div class="card-body">
+                @foreach (var item in ViewBag.Nakliyeler)
+                {
+                    <div class="border-bottom pb-2 mb-2">
+                        <strong>@item.BaslangicAdresi</strong> → <strong>@item.BitisAdresi</strong><br />
+                        <small>Taşıt: @item.Tasit?.PlakaNo | Şoför: @item.SoforAdi</small>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <div class="mt-4 text-center">
+        <a href="@Url.Action("Tara", "QRKod")" class="btn btn-secondary">Yeni Sorgu</a>
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">Ürün bulunamadı.</div>
+}

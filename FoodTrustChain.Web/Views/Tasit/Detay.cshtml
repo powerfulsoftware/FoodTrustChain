@@ -1,0 +1,83 @@
+@model FoodTrustChain.Web.Models.Entities.Tasit
+
+@{
+    ViewData["Title"] = "Taşıt Detay";
+}
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h4>Taşıt Bilgileri</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-md-3">Plaka No</dt>
+            <dd class="col-md-9"><strong>@Model.PlakaNo</strong></dd>
+
+            <dt class="col-md-3">Araç Tipi</dt>
+            <dd class="col-md-9">@Model.AracTipi</dd>
+
+            <dt class="col-md-3">Şoför</dt>
+            <dd class="col-md-9">@Model.SoforAdi</dd>
+
+            <dt class="col-md-3">Telefon</dt>
+            <dd class="col-md-9">@Model.SoforTelefon</dd>
+
+            <dt class="col-md-3">Kapasite</dt>
+            <dd class="col-md-9">@Model.Kapasite kg</dd>
+
+            <dt class="col-md-3">Sigorta</dt>
+            <dd class="col-md-9">@Model.SigortaNo</dd>
+
+            <dt class="col-md-3">Durum</dt>
+            <dd class="col-md-9">
+                @if (Model.AktifMi)
+                {
+                    <span class="badge bg-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Pasif</span>
+                }
+            </dd>
+
+            <dt class="col-md-3">Oluşturma</dt>
+            <dd class="col-md-9">@Model.OlusturmaTarihi.ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+@if (Model.Nakliyeler != null && Model.Nakliyeler.Any())
+{
+    <div class="card mt-4">
+        <div class="card-header bg-info text-white">
+            <h5>Nakliye Geçmişi</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Başlangıç</th>
+                        <th>Bitiş</th>
+                        <th>Tarih</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Nakliyeler)
+                    {
+                        <tr>
+                            <td>@item.Urun?.Ad</td>
+                            <td>@item.BaslangicAdresi</td>
+                            <td>@item.BitisAdresi</td>
+                            <td>@item.OlusturmaTarihi.ToString("dd.MM.yyyy")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Tasit")" class="btn btn-secondary">Geri Dön</a>
+</div>

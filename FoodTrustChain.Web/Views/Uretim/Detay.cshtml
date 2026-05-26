@@ -1,0 +1,48 @@
+@model FoodTrustChain.Web.Models.Entities.Uretim
+
+@{
+    ViewData["Title"] = "Üretim Detay";
+}
+
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h4>Üretim Bilgileri</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-md-3">Çiftlik Adı</dt>
+            <dd class="col-md-9">@Model.CiftlikAdi</dd>
+
+            <dt class="col-md-3">Konum</dt>
+            <dd class="col-md-9">@Model.Konum</dd>
+
+            <dt class="col-md-3">Hasat Tarihi</dt>
+            <dd class="col-md-9">@Model.HasatTarihi?.ToString("dd.MM.yyyy")</dd>
+
+            <dt class="col-md-3">Miktar</dt>
+            <dd class="col-md-9">@Model.Miktar @Model.Birim</dd>
+
+            <dt class="col-md-3">Ürün</dt>
+            <dd class="col-md-9">@Model.Urun?.Ad</dd>
+
+            <dt class="col-md-3">Üretici</dt>
+            <dd class="col-md-9">@Model.Uretici?.Ad @Model.Uretici?.Soyad</dd>
+
+            <dt class="col-md-3">Hash Değeri</dt>
+            <dd class="col-md-9"><code>@Model.HashDegeri</code></dd>
+
+            @if (Model.BlokZincirKayit != null)
+            {
+                <dt class="col-md-3">Blok Zincir Kaydı</dt>
+                <dd class="col-md-9">
+                    <span class="badge bg-success">ID: @Model.BlokZincirKayitId</span>
+                    <span class="badge bg-info">Nonce: @Model.BlokZincirKayit.Nonce</span>
+                </dd>
+            }
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Uretim")" class="btn btn-secondary">Geri Dön</a>
+</div>

@@ -1,0 +1,48 @@
+@{
+    ViewData["Title"] = "Giriş";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4>Giriş Yap</h4>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.Hata != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Hata</div>
+                }
+
+                <form asp-action="Giris" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">E-posta</label>
+                        <input type="email" name="Eposta" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Şifre</label>
+                        <input type="password" name="Sifre" class="form-control" required />
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Giriş Yap</button>
+                </form>
+
+                <hr />
+                <p class="text-center">
+                    Hesabınız yok mu? <a href="@Url.Action("Kayit", "Hesap")">Kayıt Ol</a>
+                </p>
+
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h6>Test Hesapları:</h6>
+                    <small>
+                        <strong>Yonetici:</strong> yonetici@foodtrust.com / Yonetici123!<br />
+                        <strong>Uretici:</strong> uretici@foodtrust.com / Uretici123!<br />
+                        <strong>Depo:</strong> depo@foodtrust.com / Depo123!<br />
+                        <strong>Lojistik:</strong> lojistik@foodtrust.com / Lojistik123!<br />
+                        <strong>Market:</strong> market@foodtrust.com / Market123!<br />
+                        <strong>Tuketici:</strong> tuketici@foodtrust.com / Tuketici123!
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

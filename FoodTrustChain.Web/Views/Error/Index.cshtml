@@ -1,0 +1,32 @@
+@{
+    var statusCode = ViewData["StatusCode"] ?? 404;
+    var title = ViewData["Title"] ?? "Hata";
+    var message = ViewData["Message"] ?? "Bir hata oluştu.";
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@title - FoodTrustChain</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card mx-auto shadow" style="max-width: 500px;">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">@title</h4>
+            </div>
+            <div class="card-body text-center py-4">
+                <h1 class="text-danger mb-3">@statusCode</h1>
+                <p class="lead">@message</p>
+                <hr class="my-4">
+                <div class="d-grid gap-2">
+                    <a href="/" class="btn btn-primary btn-lg">Ana Sayfaya Dön</a>
+                    <a href="/Hesap/Cikis" class="btn btn-outline-secondary">Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

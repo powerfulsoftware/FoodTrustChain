@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Zincir Doğrulama";
+}
+
+<div class="card">
+    <div class="card-header bg-dark text-white">
+        <h4>Blok Zincir Doğrulama</h4>
+    </div>
+    <div class="card-body">
+        @if (ViewBag.Gecerli == true)
+        {
+            <div class="alert alert-success">
+                <h5>✓ @ViewBag.Mesaj</h5>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <h5>✗ @ViewBag.Mesaj</h5>
+            </div>
+        }
+
+        <a href="@Url.Action("Index", "BlokZincir")" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</div>

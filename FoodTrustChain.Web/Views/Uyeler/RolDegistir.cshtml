@@ -1,0 +1,79 @@
+@model FoodTrustChain.Web.Models.Entities.Uyeler
+
+@{
+    ViewData["Title"] = "Rol Değiştir";
+}
+
+<div class="card">
+    <div class="card-header bg-warning">
+        <h4>Rol Değiştir - @Model.Ad @Model.Soyad</h4>
+    </div>
+    <div class="card-body">
+        @if (TempData["Hata"] != null)
+        {
+            <div class="alert alert-danger">@TempData["Hata"]</div>
+        }
+
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Mevcut Bilgiler</h5>
+                <table class="table">
+                    <tr>
+                        <th>E-posta:</th>
+                        <td>@Model.Eposta</td>
+                    </tr>
+                    <tr>
+                        <th>Telefon:</th>
+                        <td>@Model.Telefon</td>
+                    </tr>
+                    <tr>
+                        <th>Mevcut Rol:</th>
+                        <td>
+                            @{
+                                var rolClass = Model.Rol switch
+                                {
+                                    "Yonetici" => "bg-danger",
+                                    "Uretici" => "bg-success",
+                                    "Depo" => "bg-info",
+                                    "Lojistik" => "bg-warning",
+                                    "Market" => "bg-primary",
+                                    "Tuketici" => "bg-secondary",
+                                    _ => "bg-dark"
+                                };
+                            }
+                            <span class="badge @rolClass">@Model.Rol</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Durum:</th>
+                        <td>
+                            @if (Model.AktifMi)
+                            {
+                                <span class="badge bg-success">Aktif</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Pasif</span>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h5>Yeni Rol Seçimi</h5>
+                <form asp-action="RolDegistir" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label class="form-label">Yeni Rol</label>
+                        <select name="yeniRol" class="form-select" asp-items="ViewBag.Roller"></select>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-warning">Rol Değiştir</button>
+                        <a href="@Url.Action("Index", "Uyeler")" class="btn btn-secondary">İptal</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

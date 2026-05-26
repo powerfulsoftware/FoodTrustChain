@@ -1,0 +1,58 @@
+@{
+    ViewData["Title"] = "Kayıt";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4>Kayıt Ol</h4>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.Hata != null)
+                {
+                    <div class="alert alert-danger">@ViewBag.Hata</div>
+                }
+
+                <form asp-action="Kayit" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Ad</label>
+                                <input name="Ad" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Soyad</label>
+                                <input name="Soyad" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">E-posta</label>
+                        <input name="Eposta" type="email" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Telefon</label>
+                        <input name="Telefon" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Şifre</label>
+                        <input name="Sifre" type="password" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Şifre Tekrar</label>
+                        <input name="SifreTekrar" type="password" class="form-control" required />
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Kayıt Ol</button>
+                </form>
+
+                <hr />
+                <p class="text-center">
+                    Zaten hesabınız var mı? <a href="@Url.Action("Giris", "Hesap")">Giriş Yap</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

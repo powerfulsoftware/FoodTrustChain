@@ -1,0 +1,64 @@
+@model FoodTrustChain.Web.Models.Entities.Nakliye
+
+@{
+    ViewData["Title"] = "Nakliye Ekle";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>Yeni Nakliye Kaydı</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Ekle" method="post">
+            @Html.AntiForgeryToken()
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <strong>Validation Errors:</strong>
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var errors = ViewData.ModelState[key].Errors;
+                        if (errors.Any())
+                        {
+                            <p>@key: @string.Join(", ", errors.Select(e => e.ErrorMessage))</p>
+                        }
+                    }
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Ürün</label>
+                        <select asp-for="UrunId" class="form-select" asp-items="ViewBag.Urunler"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Taşıt</label>
+                        <select asp-for="TasitId" class="form-select" asp-items="ViewBag.Tasitler"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Başlangıç Adresi</label>
+                        <input asp-for="BaslangicAdresi" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label class="form-label">Bitiş Adresi</label>
+                        <input asp-for="BitisAdresi" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Taşıma Başlangıç</label>
+                        <input asp-for="TasimaBaslangicTarihi" type="datetime-local" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Sıcaklık (°C)</label>
+                        <input asp-for="Sicaklik" class="form-control" step="0.1" />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-success">Kaydet</button>
+                <a href="@Url.Action("Index", "Nakliye")" class="btn btn-secondary">İptal</a>
+            </div>
+        </form>
+    </div>
+</div>

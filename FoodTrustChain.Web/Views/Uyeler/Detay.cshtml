@@ -1,0 +1,59 @@
+@model FoodTrustChain.Web.Models.Entities.Uyeler
+
+@{
+    ViewData["Title"] = "Üye Detay";
+}
+
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h4>Üye Bilgileri</h4>
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-md-3">Ad Soyad</dt>
+            <dd class="col-md-9">@Model.Ad @Model.Soyad</dd>
+
+            <dt class="col-md-3">E-posta</dt>
+            <dd class="col-md-9">@Model.Eposta</dd>
+
+            <dt class="col-md-3">Telefon</dt>
+            <dd class="col-md-9">@Model.Telefon</dd>
+
+            <dt class="col-md-3">Rol</dt>
+            <dd class="col-md-9">
+                @{
+                    var rolClass = Model.Rol switch
+                    {
+                        "Yonetici" => "bg-danger",
+                        "Uretici" => "bg-success",
+                        "Depo" => "bg-info",
+                        "Lojistik" => "bg-warning",
+                        "Market" => "bg-primary",
+                        "Tuketici" => "bg-secondary",
+                        _ => "bg-dark"
+                    };
+                }
+                <span class="badge @rolClass">@Model.Rol</span>
+            </dd>
+
+            <dt class="col-md-3">Durum</dt>
+            <dd class="col-md-9">
+                @if (Model.AktifMi)
+                {
+                    <span class="badge bg-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Pasif</span>
+                }
+            </dd>
+
+            <dt class="col-md-3">Oluşturma</dt>
+            <dd class="col-md-9">@Model.OlusturmaTarihi.ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="@Url.Action("Index", "Uyeler")" class="btn btn-secondary">Geri Dön</a>
+</div>
